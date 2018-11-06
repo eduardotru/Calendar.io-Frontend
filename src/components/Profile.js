@@ -16,7 +16,7 @@ export default class Profile extends Component {
         email: 'ed@ed.com',
         phone: '1234567'
       },
-      edit: true,
+      edit: false,
       changes: {
         firstName: 'Eduardo',
         lastName: 'Trujillo',
@@ -26,6 +26,7 @@ export default class Profile extends Component {
       }
     };
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.saveChanges = this.saveChanges.bind(this);
   }
 
   toggleEdit() {
@@ -63,9 +64,9 @@ export default class Profile extends Component {
     if(this.state.edit) {
       return (
         <div className="row center-align">
-        <div className="col s12">
-          <h2>{this.state.info.username}</h2>
-        </div>
+          <div className="col s12">
+            <h2>{this.state.info.username}</h2>
+          </div>
           <div className="col s12">
             <TextInput
               name="First Name"
@@ -97,7 +98,7 @@ export default class Profile extends Component {
           <div className="col s12">
             <div className="row">
               <div className="col s6 right-align">
-                <button className="waves-effect waves-light btn" onClick={() => {this.saveChanges();}}>
+                <button className="waves-effect waves-light btn" onClick={this.saveChanges}>
                   Save<i className="material-icons left">save</i>
                 </button>
               </div>

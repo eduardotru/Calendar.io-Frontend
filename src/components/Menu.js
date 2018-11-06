@@ -17,7 +17,7 @@ export default class Menu extends Component {
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link to="./friends">Friends</Link></li>
               <li><Link to="./profile">Profile</Link></li>
-              <li><Link to="./">Log out</Link></li>
+              <li><Link to="./" onClick={this.props.performLogout}>Log out</Link></li>
             </ul>
           </div>
         </nav>

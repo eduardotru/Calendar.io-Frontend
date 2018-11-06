@@ -15,10 +15,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       id: 0
     };
     this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  login(id) {
+    this.setState({
+      loggedIn: true,
+      id: id
+    });
   }
 
   logout() {
@@ -32,7 +40,7 @@ class App extends Component {
     if(this.state.loggedIn) {
       return (
         <div>
-          <Menu />
+          <Menu performLogout={this.logout}/>
           <div className="container">
             <Switch>
               <Route exact path="/" component={Calendar} />
@@ -50,7 +58,9 @@ class App extends Component {
           <Nav />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" render={props => (
+                <Home performLogin={this.login}/>
+              )} />
               <Route path="/home" component={Home} />
               <Route path="/register" component={Register} />
               <Route component={NotFound} />

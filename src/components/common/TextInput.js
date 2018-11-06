@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class TextInput extends Component {
   render() {
     return (
-      <div className="center-align input-field col s6">
+      <div className="center-align input-field col s12">
         <input
           id={this.props.name}
           type="text"

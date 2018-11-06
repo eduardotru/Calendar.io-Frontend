@@ -49,35 +49,35 @@ export default class Register extends Component {
         <div className="col s12">
           <h2>Register</h2>
         </div>
-        <div className="col s12">
+        <div className="col s12 l6">
           <TextInput
             name="First Name"
             value={this.state.info.firstName}
             onChange={(e) => {this.handleInput(e, "firstName");} }
           />
         </div>
-        <div className="col s12">
+        <div className="col s12 l6">
           <TextInput
             name="Last Name"
             value={this.state.info.lastName}
             onChange={(e) => {this.handleInput(e, "lastName");} }
           />
         </div>
-        <div className="col s12">
+        <div className="col s12 l6">
           <TextInput
             name="Username"
             value={this.state.info.username}
             onChange={(e) => {this.handleInput(e, "username");} }
           />
         </div>
-        <div className="col s12">
+        <div className="col s12 l6">
           <TextInput
             name="Email"
             value={this.state.info.email}
             onChange={(e) => {this.handleInput(e, "email");} }
           />
         </div>
-        <div className="col s12">
+        <div className="col s12 l6">
           <TextInput
             name="Phone"
             value={this.state.info.phone}

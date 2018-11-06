@@ -67,28 +67,28 @@ export default class Profile extends Component {
           <div className="col s12">
             <h2>{this.state.info.username}</h2>
           </div>
-          <div className="col s12">
+          <div className="col s12 l6">
             <TextInput
               name="First Name"
               value={this.state.changes.firstName}
               onChange={(e) => {this.handleInput(e, "firstName");} }
             />
           </div>
-          <div className="col s12">
+          <div className="col s12 l6">
             <TextInput
               name="Last Name"
               value={this.state.changes.lastName}
               onChange={(e) => {this.handleInput(e, "lastName");} }
             />
           </div>
-          <div className="col s12">
+          <div className="col s12 l6">
             <TextInput
               name="Email"
               value={this.state.changes.email}
               onChange={(e) => {this.handleInput(e, "email");} }
             />
           </div>
-          <div className="col s12">
+          <div className="col s12 l6">
             <TextInput
               name="Phone"
               value={this.state.changes.phone}

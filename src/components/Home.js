@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert2';
 
 export default class Home extends Component {
   constructor(props) {
@@ -23,14 +24,18 @@ export default class Home extends Component {
       //TODO: actually login
       this.props.performLogin(0);
     } else {
-
+      swal({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Please introduce your credentials!',
+      });
     }
   }
 
   render() {
     return (
       <div className="row">
-        <div className="card-panel grey lighten-2 col s12 m12 l8">
+        <div className="card-panel grey lighten-2 col s12">
           <div className="center-align input-field col s12 m5">
             <input
               id="username"

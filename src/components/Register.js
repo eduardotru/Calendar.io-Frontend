@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert2';
 
 import TextInput from './common/TextInput';
 
@@ -26,7 +27,20 @@ export default class Register extends Component {
 
   saveChanges() {
     //TODO: Save the changes in the database
+    if(this.state.info.firstName &&
+       this.state.info.lastName &&
+       this.state.info.username &&
+       this.state.info.email &&
+       this.state.info.phone
+     ) {
 
+     } else {
+       swal({
+         type: 'error',
+         title: 'Oops...',
+         text: 'Please fill the form completely!',
+       });
+     }
   }
 
   render() {

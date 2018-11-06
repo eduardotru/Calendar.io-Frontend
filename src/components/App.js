@@ -33,25 +33,29 @@ class App extends Component {
       return (
         <div>
           <Menu />
-          <Switch>
-            <Route exact path="/" component={Calendar} />
-            <Route path="/calendar" component={Calendar} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/friends" component={Friends} />
-            <Route component={NotFound} />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Calendar} />
+              <Route path="/calendar" component={Calendar} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/friends" component={Friends} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
         </div>
       );
     } else {
       return (
         <div>
           <Nav />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/home" component={Home} />
-            <Route path="/register" component={Register} />
-            <Route component={NotFound} />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/home" component={Home} />
+              <Route path="/register" component={Register} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
         </div>
       );
     }

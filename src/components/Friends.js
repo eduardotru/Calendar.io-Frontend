@@ -4,6 +4,7 @@ export default class Friends extends Component {
   constructor(props) {
     super(props);
     //TODO: Get friends from database
+    
     this.state = {
       friends: [
         {

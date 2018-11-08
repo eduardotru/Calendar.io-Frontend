@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = "localhost:3000";
+const host = "http://localhost:3000";
 
 export const getUser = (id) => {
   return axios.get(host + '/users/' + id).then((response) => {
@@ -19,8 +19,10 @@ export const addUser = (username, firstname, lastname, email, phone, password) =
     phone: phone,
     password: password
   }).then((response) => {
+    console.log(response);
     return true;
   }).catch((error) => {
+    console.log(error);
     return false;
   });
 };

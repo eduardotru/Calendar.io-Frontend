@@ -3,6 +3,7 @@ import swal from 'sweetalert2';
 
 import TextInput from './common/TextInput';
 import PasswordInput from './common/PasswordInput';
+import { addUser } from '../requests';
 
 export default class Register extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class Register extends Component {
 
   saveChanges() {
     //TODO: Save the changes in the database
+    console.log("Save changes");
     if(this.state.info.firstName &&
        this.state.info.lastName &&
        this.state.info.username &&
@@ -36,7 +38,12 @@ export default class Register extends Component {
        this.state.info.phone &&
        this.state.info.password
      ) {
-
+       addUser(this.state.info.username, this.state.info.firstName,
+         this.state.info.lastName, this.state.info.email, this.state.info.phone,
+         this.state.info.password
+       ).then((response) => {
+         console.log(response);
+       });
      } else {
        swal({
          type: 'error',
@@ -97,7 +104,7 @@ export default class Register extends Component {
         <div className="col s12">
           <div className="row">
             <div className="col s12 center-align">
-              <button className="waves-effect waves-light btn" onClick={() => {this.saveChanges();}}>
+              <button className="waves-effect waves-light btn" onClick={(e) => {this.saveChanges();}}>
                 Register<i className="material-icons left">how_to_reg</i>
               </button>
             </div>

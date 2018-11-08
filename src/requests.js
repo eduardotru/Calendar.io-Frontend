@@ -48,11 +48,11 @@ export const getEvents = (id) => {
   });
 };
 
-export const addEvent = (id, dueDate, duration, static) => {
+export const addEvent = (id, dueDate, duration, staticEvent) => {
   return axios.post(host + '/users/' + id + '/events', {
     duration: duration,
     dueDate: dueDate,
-    static: static
+    static: staticEvent
   }).then((response) => {
     return true;
   }).catch((error) => {

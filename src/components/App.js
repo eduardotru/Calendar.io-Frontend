@@ -15,8 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
-      id: 0
+      loggedIn: true,
+      id: 1
     };
     this.logout = this.logout.bind(this);
     this.login = this.login.bind(this);

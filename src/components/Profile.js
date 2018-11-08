@@ -8,7 +8,7 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
 
-    this.id = 1;
+    this.id = this.props.id;
 
     this.state = {
       info: {},
@@ -18,8 +18,13 @@ export default class Profile extends Component {
     this.toggleEdit = this.toggleEdit.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
 
+    this.getUser();
+  }
+
+  getUser() {
     getUser(this.id).then((info) => {
       if(info) {
+        console.log(info);
         let changes = Object.create(info);
         this.setState({
           info: info,

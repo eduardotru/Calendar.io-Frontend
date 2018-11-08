@@ -4,7 +4,7 @@ export default class Friends extends Component {
   constructor(props) {
     super(props);
     //TODO: Get friends from database
-    
+
     this.state = {
       friends: [
         {
@@ -62,6 +62,18 @@ export default class Friends extends Component {
     return (
       <div>
         <h3>Friends</h3>
+        <nav>
+          <div className="nav-wrapper deep-purple lighten-3">
+            <form>
+              <div className="input-field">
+                <input id="search" type="search" required/>
+                <label className="label-icon" for="search"><i className="material-icons">search</i></label>
+                <i className="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+        <br/>
         <div className="row">
           {friendCards}
         </div>

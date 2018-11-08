@@ -43,10 +43,10 @@ class App extends Component {
           <Menu performLogout={this.logout}/>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Calendar} />
-              <Route path="/calendar" component={Calendar} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/friends" component={Friends} />
+              <Route exact path="/" render={props => <Calendar id={this.state.id} /> } />
+              <Route path="/calendar" render={props => <Calendar id={this.state.id} /> } />
+              <Route path="/profile" render={props => <Profile id={this.state.id} /> } />
+              <Route path="/friends" render={props => <Friends id={this.state.id} /> } />
               <Route component={NotFound} />
             </Switch>
           </div>
@@ -61,8 +61,12 @@ class App extends Component {
               <Route exact path="/" render={props => (
                 <Home performLogin={this.login}/>
               )} />
-              <Route path="/home" component={Home} />
-              <Route path="/register" component={Register} />
+              <Route path="/home" render={props => (
+                <Home performLogin={this.login}/>
+              )} />
+              <Route path="/register" render={props => (
+                <Register performLogin={this.login}/>
+              )} />
               <Route component={NotFound} />
             </Switch>
           </div>

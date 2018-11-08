@@ -19,11 +19,9 @@ export const addUser = (username, firstname, lastname, email, phone, password) =
     phone: phone,
     password: password
   }).then((response) => {
-    console.log(response);
-    return true;
+    return response.id;
   }).catch((error) => {
-    console.log(error);
-    return false;
+    return -1;
   });
 };
 

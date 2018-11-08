@@ -15,7 +15,8 @@ export default class Register extends Component {
         username: '',
         email: '',
         phone: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
       }
     };
   }
@@ -38,12 +39,28 @@ export default class Register extends Component {
        this.state.info.phone &&
        this.state.info.password
      ) {
-       addUser(this.state.info.username, this.state.info.firstName,
-         this.state.info.lastName, this.state.info.email, this.state.info.phone,
-         this.state.info.password
-       ).then((response) => {
-         console.log(response);
-       });
+       if(this.state.info.password !== this.state.info.confirmPassword) {
+         swal({
+           type: 'error',
+           title: 'Oops...',
+           text: 'The passwords are not equal!',
+         });
+       } else {
+         addUser(this.state.info.username, this.state.info.firstName,
+           this.state.info.lastName, this.state.info.email, this.state.info.phone,
+           this.state.info.password
+         ).then((id) => {
+           if(id !== -1) {
+             this.props.performLogin(id);
+           } else {
+             swal({
+               type: 'error',
+               title: 'Oops...',
+               text: 'There was a problem while doing your registration!',
+             });
+           }
+         });
+       }
      } else {
        swal({
          type: 'error',
@@ -99,6 +116,13 @@ export default class Register extends Component {
             name="Password"
             value={this.state.info.password}
             onChange={(e) => {this.handleInput(e, "password");} }
+          />
+        </div>
+        <div className="col s12 l6">
+          <PasswordInput
+            name="Confirm Password"
+            value={this.state.info.confirmPassword}
+            onChange={(e) => {this.handleInput(e, "confirmPassword");} }
           />
         </div>
         <div className="col s12">

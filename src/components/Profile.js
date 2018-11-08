@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 
 import TextInput from './common/TextInput';
+import PasswordInput from './common/PasswordInput';
+import { getUser, updateUser } from '../requests'
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
 
-    //TODO: Get profile from database
+    this.id = 1;
 
     this.state = {
-      info: {
-        firstName: 'Eduardo',
-        lastName: 'Trujillo',
-        username: 'edytr',
-        email: 'ed@ed.com',
-        phone: '1234567'
-      },
+      info: {},
       edit: false,
-      changes: {
-        firstName: 'Eduardo',
-        lastName: 'Trujillo',
-        username: 'edytr',
-        email: 'ed@ed.com',
-        phone: '1234567'
-      }
+      changes: {}
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+
+    getUser(this.id).then((info) => {
+      if(info) {
+        let changes = Object.create(info);
+        this.setState({
+          info: info,
+          edit: false,
+          changes: changes
+        });
+      }
+    });
   }
 
   toggleEdit() {
@@ -49,14 +50,18 @@ export default class Profile extends Component {
   }
 
   saveChanges() {
-    //TODO: Save the changes in the database
+    updateUser(this.id, this.state.changes.username, this.state.changes.firstname, this.state.changes.lastname,
+      this.state.changes.email, this.state.changes.phone, this.state.changes.password
+    ).then((response) => {
+      if(response) {
+        let newChanges = Object.create(this.state.changes);
 
-    let newChanges = Object.create(this.state.changes);
-
-    this.setState({
-      info: newChanges,
-      edit: !this.state.edit,
-      changes: this.state.changes
+        this.setState({
+          info: newChanges,
+          edit: !this.state.edit,
+          changes: this.state.changes
+        });
+      }
     });
   }
 
@@ -70,15 +75,15 @@ export default class Profile extends Component {
           <div className="col s12 l6">
             <TextInput
               name="First Name"
-              value={this.state.changes.firstName}
-              onChange={(e) => {this.handleInput(e, "firstName");} }
+              value={this.state.changes.firstname}
+              onChange={(e) => {this.handleInput(e, "firstname");} }
             />
           </div>
           <div className="col s12 l6">
             <TextInput
               name="Last Name"
-              value={this.state.changes.lastName}
-              onChange={(e) => {this.handleInput(e, "lastName");} }
+              value={this.state.changes.lastname}
+              onChange={(e) => {this.handleInput(e, "lastname");} }
             />
           </div>
           <div className="col s12 l6">
@@ -93,6 +98,13 @@ export default class Profile extends Component {
               name="Phone"
               value={this.state.changes.phone}
               onChange={(e) => {this.handleInput(e, "phone");} }
+            />
+          </div>
+          <div className="col s12 l6">
+            <PasswordInput
+              name="Password"
+              value={this.state.changes.password}
+              onChange={(e) => {this.handleInput(e, "password");} }
             />
           </div>
           <div className="col s12">
@@ -115,7 +127,7 @@ export default class Profile extends Component {
       return (
         <div className="row center-align">
           <div className="col s12">
-            <h2>{this.state.info.firstName} {this.state.info.lastName}</h2>
+            <h2>{this.state.info.firstname} {this.state.info.lastname}</h2>
           </div>
           <div className="col s12">
             <h4>Username: {this.state.info.username}</h4>

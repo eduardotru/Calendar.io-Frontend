@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import swal from 'sweetalert2';
 
 import TextInput from './common/TextInput';
+import PasswordInput from './common/PasswordInput';
 
 export default class Register extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ export default class Register extends Component {
         lastName: '',
         username: '',
         email: '',
-        phone: ''
+        phone: '',
+        password: ''
       }
     };
   }
@@ -31,7 +33,8 @@ export default class Register extends Component {
        this.state.info.lastName &&
        this.state.info.username &&
        this.state.info.email &&
-       this.state.info.phone
+       this.state.info.phone &&
+       this.state.info.password
      ) {
 
      } else {
@@ -82,6 +85,13 @@ export default class Register extends Component {
             name="Phone"
             value={this.state.info.phone}
             onChange={(e) => {this.handleInput(e, "phone");} }
+          />
+        </div>
+        <div className="col s12 l6">
+          <PasswordInput
+            name="Password"
+            value={this.state.info.password}
+            onChange={(e) => {this.handleInput(e, "password");} }
           />
         </div>
         <div className="col s12">

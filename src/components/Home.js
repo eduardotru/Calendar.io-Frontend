@@ -22,7 +22,7 @@ export default class Home extends Component {
   login() {
     if(this.state.username && this.state.password) {
       //TODO: actually login
-      this.props.performLogin(0);
+      this.props.performLogin(1);
     } else {
       swal({
         type: 'error',

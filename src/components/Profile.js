@@ -8,7 +8,7 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
 
-    this.id = this.props.id;
+    this.id = 7;
 
     this.state = {
       info: {},

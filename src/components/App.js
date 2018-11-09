@@ -10,6 +10,7 @@ import Profile from './Profile';
 import Menu from './Menu';
 import Nav from './Nav';
 import NotFound from './NotFound'
+import AddEvent from './AddEvent';
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class App extends Component {
               <Route path="/calendar" render={props => <Calendar id={this.state.id} /> } />
               <Route path="/profile" render={props => <Profile id={this.state.id} /> } />
               <Route path="/friends" render={props => <Friends id={this.state.id} /> } />
+              <Route path="/newEvent" render={props => <AddEvent id={this.state.id} /> } />
               <Route component={NotFound} />
             </Switch>
           </div>

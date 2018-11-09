@@ -42,7 +42,7 @@ export const updateUser = (id, username, firstname, lastname, email, phone, pass
 
 export const getEvents = (id) => {
   return axios.get(host + '/users/' + id + '/events').then((response) => {
-    return response;
+    return response.data;
   }).catch((error) => {
     return [];
   });

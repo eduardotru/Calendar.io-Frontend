@@ -59,3 +59,11 @@ export const addEvent = (id, dueDate, duration, staticEvent) => {
     return false;
   });
 };
+
+export const deleteEvent = (id, event) => {
+  return axios.delete(host + '/users/' + id + '/events/' + event).then((response) => {
+    return true;
+  }).catch((error) => {
+    return false;
+  });
+};

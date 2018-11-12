@@ -11,12 +11,13 @@ import Menu from './Menu';
 import Nav from './Nav';
 import NotFound from './NotFound'
 import AddEvent from './AddEvent';
+import FriendProfile from './FriendProfile';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       id: 1
     };
     this.logout = this.logout.bind(this);
@@ -39,16 +40,19 @@ class App extends Component {
 
   render() {
     if(this.state.loggedIn) {
+      let params = new URLSearchParams(window.location.search);
+
       return (
         <div>
           <Menu performLogout={this.logout}/>
           <div className="container">
             <Switch>
               <Route exact path="/" render={props => <Calendar id={this.state.id} /> } />
-              <Route path="/calendar" render={props => <Calendar id={this.state.id} /> } />
+              <Route path="/calendar" render={props => <Calendar id={this.state.id} friendView={false}/> } />
               <Route path="/profile" render={props => <Profile id={this.state.id} /> } />
               <Route path="/friends" render={props => <Friends id={this.state.id} /> } />
               <Route path="/newEvent" render={props => <AddEvent id={this.state.id} /> } />
+              <Route path="/friendProfile" render={props => <FriendProfile id={params.get("friendId")} />} />
               <Route component={NotFound} />
             </Switch>
           </div>

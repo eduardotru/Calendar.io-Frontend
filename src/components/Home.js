@@ -81,7 +81,7 @@ export default class Home extends Component {
           <h5>
             The page where you can organize yourself and see your friends organization!
           </h5>
-          <img src="https://www.racedepartment.com/images/rd_calext/calendar.png"/>
+          <img alt="" src="https://www.racedepartment.com/images/rd_calext/calendar.png"/>
         </div>
       </div>
     );

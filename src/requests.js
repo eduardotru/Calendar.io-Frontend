@@ -61,8 +61,9 @@ export const getEvents = (id) => {
   });
 };
 
-export const addEvent = (id, dueDate, duration, staticEvent) => {
+export const addEvent = (id, name, dueDate, duration, staticEvent) => {
   return axios.post(host + '/users/' + id + '/events', {
+    name: name,
     duration: duration,
     dueDate: dueDate,
     static: staticEvent

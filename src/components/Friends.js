@@ -10,10 +10,12 @@ export default class Friends extends Component {
 
     this.state = {
       friends: [],
-      users: []
+      users: [],
+      searchUser: ''
     }
     this.addFriend = this.addFriend.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleInput = this.handleInput.bind(this);
 
     this.getFriends();
   }
@@ -28,7 +30,8 @@ export default class Friends extends Component {
         if(friends) {
           this.setState({
             friends: friends,
-            users: this.state.users
+            users: this.state.users,
+            searchUser: this.state.searchUser
           });
         }
       });
@@ -39,6 +42,7 @@ export default class Friends extends Component {
     addFriend(this.props.id, id).then((added) => {
       if(added) {
         this.getFriends();
+        this.searchUsers(this.state.searchUser)
       } else {
         swal({
           type: 'error',
@@ -49,19 +53,31 @@ export default class Friends extends Component {
     });
   }
 
+  searchUsers(user) {
+    findUsers(this.props.id, user).then((users) => {
+      if(users) {
+        this.setState({
+          friends: this.state.friends,
+          users: users,
+          searchUser: this.state.searchUser
+        });
+      }
+    });
+  }
+
   handleSearch(e) {
     if(e.key === 'Enter') {
       e.preventDefault();
-      console.log(e.target.value);
-      findUsers(this.props.id, e.target.value).then((users) => {
-        if(users) {
-          this.setState({
-            friends: this.state.friends,
-            users: users
-          });
-        }
-      });
+      this.searchUsers(this.state.searchUser);
     }
+  }
+
+  handleInput(e) {
+    this.setState({
+      friends: this.state.friends,
+      users: this.state.users,
+      searchUser: e.target.value
+    });
   }
 
   render() {
@@ -97,7 +113,10 @@ export default class Friends extends Component {
             <div className="nav-wrapper deep-purple lighten-3">
               <form>
                 <div className="input-field">
-                  <input id="search" type="search" required onKeyPress={e => this.handleSearch(e)}/>
+                  <input id="search" type="search" required
+                    value={this.state.searchUser}
+                    onChange={e => this.handleInput(e)}
+                    onKeyPress={e => this.handleSearch(e)}/>
                   <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
                   <i className="material-icons">close</i>
                 </div>

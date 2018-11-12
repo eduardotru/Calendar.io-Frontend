@@ -45,7 +45,7 @@ export default class Calendar extends Component {
       <Event
         key={index}
         id={event.id}
-        name="No name yet"
+        name={event.name}
         dueDate={event.dueDate}
         duration={event.duration}
         onDelete={this.deleteEvent}

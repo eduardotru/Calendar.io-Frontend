@@ -37,6 +37,7 @@ export default class AddEvent extends Component {
       this.state.duration
     ) {
       addEvent(this.props.id,
+        this.state.name,
         this.state.date + ' ' + this.state.time,
         this.state.duration,
         false

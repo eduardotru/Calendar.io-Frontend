@@ -2,6 +2,19 @@ import axios from 'axios';
 
 const host = "http://localhost:3000";
 
+export const attemptLogin = (username, password) => {
+  axios.get(host + '/login', {
+    params: {
+      username: username,
+      password: password
+    }
+  }).then((response) => {
+    return response.data.id;
+  }).catch((error) => {
+    return -1;
+  });
+};
+
 export const getUser = (id) => {
   return axios.get(host + '/users/' + id).then((response) => {
     return response.data;
@@ -19,7 +32,7 @@ export const addUser = (username, firstname, lastname, email, phone, password) =
     phone: phone,
     password: password
   }).then((response) => {
-    return response.id;
+    return response.data.id;
   }).catch((error) => {
     return -1;
   });

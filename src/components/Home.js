@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 
+import { attemptLogin } from '../requests';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +23,17 @@ export default class Home extends Component {
 
   login() {
     if(this.state.username && this.state.password) {
-      //TODO: actually login
-      this.props.performLogin(1);
+      attemptLogin(this.state.username, this.state.password).then((id) => {
+        if(id === -1) {
+          swal({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Wrong credentials!',
+          });
+        } else {
+          this.props.performLogin(id);
+        }
+      });
     } else {
       swal({
         type: 'error',

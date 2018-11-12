@@ -8,16 +8,17 @@ export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: []
+      events: [],
+      shouldReload: true
     }
-    this.getEvents();
     this.deleteEvent = this.deleteEvent.bind(this);
   }
 
   getEvents() {
     getEvents(this.props.id).then((events) => {
       this.setState({
-        events: events
+        events: events,
+        shouldReload: false
       });
     });
   }
@@ -37,6 +38,9 @@ export default class Calendar extends Component {
   }
 
   render() {
+    if(this.state.shouldReload) {
+      this.getEvents();
+    }
     let events = this.state.events.map((event, index) =>
       <Event
         key={index}
@@ -48,6 +52,9 @@ export default class Calendar extends Component {
         friendView={this.props.friendView}
       />
     );
+    if(events.length === 0) {
+      events = <h1 className="deep-purple-text text-lighten-3">There are no events in your calendar!</h1>
+    }
     if(this.props.friendView) {
       return (
         <div>
@@ -61,7 +68,10 @@ export default class Calendar extends Component {
           <h3>Calendar</h3>
           {events}
           <div className="fixed-action-btn">
-            <Link to="./newEvent" className="btn-floating btn-large deep-purple lighten-3">
+            <Link to="./newEvent"
+              className="btn-floating btn-large deep-purple lighten-3"
+              onClick={() => this.setState({events: this.state.events, shouldReload: true})}
+            >
               <i className="large material-icons">add</i>
             </Link>
           </div>
@@ -75,7 +85,7 @@ class Event extends Component {
   render() {
     if(this.props.friendView) {
       return (
-        <div className="card hoverable grey lighten-3 col s12 m6 l4">
+        <div className="card hoverable grey lighten-3 col s12">
           <div className="card-title col s12">
             <p>{this.props.name}</p>
           </div>
@@ -93,7 +103,7 @@ class Event extends Component {
       );
     } else {
       return (
-        <div className="card hoverable grey lighten-3 col s12 m6 l4">
+        <div className="card hoverable grey lighten-3 col s12">
           <div className="card-title col s12">
             <p>{this.props.name}</p>
           </div>

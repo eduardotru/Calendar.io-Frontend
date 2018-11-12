@@ -128,7 +128,7 @@ export default class Register extends Component {
         <div className="col s12">
           <div className="row">
             <div className="col s12 center-align">
-              <button className="waves-effect waves-light btn" onClick={(e) => {this.saveChanges();}}>
+              <button className="waves-effect waves-light btn deep-purple lighten-3" onClick={(e) => {this.saveChanges();}}>
                 Register<i className="material-icons left">how_to_reg</i>
               </button>
             </div>

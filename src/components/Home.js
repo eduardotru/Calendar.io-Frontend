@@ -24,6 +24,7 @@ export default class Home extends Component {
   login() {
     if(this.state.username && this.state.password) {
       attemptLogin(this.state.username, this.state.password).then((id) => {
+        console.log(id);
         if(id === -1) {
           swal({
             type: 'error',
@@ -69,12 +70,18 @@ export default class Home extends Component {
           </div>
           <div className="valign-wrapper col s12 m2">
             <p>
-              <button className="center-align waves-effect waves-light btn" onClick={this.login}>Login</button>
+              <button className="center-align waves-effect waves-light btn deep-purple lighten-3" onClick={this.login}>Login</button>
             </p>
           </div>
         </div>
-        <div className="col s12">
-          Description
+        <div className="col s12 center">
+          <h1>
+            Calendar.io
+          </h1>
+          <h5>
+            The page where you can organize yourself and see your friends organization!
+          </h5>
+          <img src="https://www.racedepartment.com/images/rd_calext/calendar.png"/>
         </div>
       </div>
     );

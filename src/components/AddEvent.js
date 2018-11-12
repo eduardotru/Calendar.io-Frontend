@@ -111,7 +111,7 @@ export default class AddEvent extends Component {
             <p>
               <Link
                 to="/calendar"
-                className="waves-effect waves-light btn"
+                className="waves-effect waves-light btn deep-purple lighten-3"
                 onClick={this.createEvent}
               >Create</Link>
             </p>

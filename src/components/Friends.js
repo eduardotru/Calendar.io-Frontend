@@ -52,7 +52,8 @@ export default class Friends extends Component {
   handleSearch(e) {
     if(e.key === 'Enter') {
       e.preventDefault();
-      findUsers(e.target.value).then((users) => {
+      console.log(e.target.value);
+      findUsers(this.props.id, e.target.value).then((users) => {
         if(users) {
           this.setState({
             friends: this.state.friends,

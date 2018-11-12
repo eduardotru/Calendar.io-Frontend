@@ -115,7 +115,7 @@ export default class Profile extends Component {
           <div className="col s12">
             <div className="row">
               <div className="col s6 right-align">
-                <button className="waves-effect waves-light btn" onClick={this.saveChanges}>
+                <button className="waves-effect waves-light btn deep-purple lighten-3" onClick={this.saveChanges}>
                   Save<i className="material-icons left">save</i>
                 </button>
               </div>
@@ -143,7 +143,7 @@ export default class Profile extends Component {
           <div className="col s12">
             <h4>Phone: {this.state.info.phone}</h4>
           </div>
-          <button className="waves-effect waves-light btn" onClick={this.toggleEdit}>
+          <button className="waves-effect waves-light btn deep-purple lighten-3" onClick={this.toggleEdit}>
             Edit <i className="material-icons left">edit</i>
           </button>
         </div>

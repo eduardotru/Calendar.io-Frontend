@@ -9,7 +9,6 @@ import Register from './Register';
 import Profile from './Profile';
 import Menu from './Menu';
 import Nav from './Nav';
-import NotFound from './NotFound'
 import AddEvent from './AddEvent';
 import FriendProfile from './FriendProfile';
 
@@ -17,8 +16,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
-      id: 1
+      loggedIn: false,
+      id: 0
     };
     this.logout = this.logout.bind(this);
     this.login = this.login.bind(this);
@@ -53,7 +52,7 @@ class App extends Component {
               <Route path="/friends" render={props => <Friends id={this.state.id} /> } />
               <Route path="/newEvent" render={props => <AddEvent id={this.state.id} /> } />
               <Route path="/friendProfile" render={props => <FriendProfile id={params.get("friendId")} />} />
-              <Route component={NotFound} />
+              <Route render={props => <Calendar id={this.state.id} /> } />
             </Switch>
           </div>
         </div>
@@ -73,7 +72,9 @@ class App extends Component {
               <Route path="/register" render={props => (
                 <Register performLogin={this.login}/>
               )} />
-              <Route component={NotFound} />
+              <Route render={props => (
+                <Home performLogin={this.login}/>
+              )} />
             </Switch>
           </div>
         </div>

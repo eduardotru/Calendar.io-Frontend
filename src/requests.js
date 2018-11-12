@@ -9,8 +9,7 @@ export const attemptLogin = (username, password) => {
       password: password
     }
   }).then((response) => {
-    console.log(response);
-    return response.data[0];
+    return response.data[0] || response.data;
   }).catch((error) => {
     return -1;
   });
@@ -100,13 +99,17 @@ export const getFriends = (id) => {
   });
 };
 
-export const findUsers = (id, username) => {
+export const findUsers = (id, user) => {
   return axios.get(host + '/users/' + id + '/findUsers', {
     params: {
-      username: username
+      username: user
     }
   }).then((response) => {
-    return response.data;
+    if(response.data === -1) {
+      return [];
+    } else {
+      return response.data;
+    }
   }).catch(() => {
     return [];
   });

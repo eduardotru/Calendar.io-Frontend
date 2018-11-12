@@ -1,54 +1,72 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
+
+import { getFriends, addFriend, findUsers } from '../requests';
 
 export default class Friends extends Component {
   constructor(props) {
     super(props);
-    //TODO: Get friends from database
 
     this.state = {
-      friends: [
-        {
-          id: 0,
-          firstName: 'Esteban',
-          lastName: 'Arocha',
-          email: 'stv@stv.com',
-          username: 'stv',
-        },
-        {
-          id: 0,
-          firstName: 'Esteban',
-          lastName: 'Arocha',
-          email: 'stv@stv.com',
-          username: 'stv',
-        },{
-          id: 0,
-          firstName: 'Esteban',
-          lastName: 'Arocha',
-          email: 'stv@stv.com',
-          username: 'stv',
-        },{
-          id: 0,
-          firstName: 'Esteban',
-          lastName: 'Arocha',
-          email: 'stv@stv.com',
-          username: 'stv',
-        },{
-          id: 0,
-          firstName: 'Esteban',
-          lastName: 'Arocha',
-          email: 'stv@stv.com',
-          username: 'stv',
-        }
-      ]
+      friends: [],
+      users: []
     }
     this.addFriend = this.addFriend.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+
+    this.getFriends();
+  }
+
+  getFriends() {
+    getFriends(this.props.id).then((friends) => {
+      this.setState({
+        friends: friends,
+        users: this.state.users
+      });
+    });
   }
 
   addFriend(id) {
-    //TODO: add friend
+    addFriend(this.props.id, id).then((added) => {
+      if(added) {
+        this.getFriends();
+      } else {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Error adding friend!',
+        });
+      }
+    });
+  }
+
+  handleSearch(e) {
+    if(e.key === 'Enter') {
+      e.preventDefault();
+      findUsers(e.target.value).then((users) => {
+        if(users) {
+          this.setState({
+            friends: this.state.friends,
+            users: users
+          });
+        }
+      });
+    }
   }
 
   render() {
+    let userCards = this.state.users.map((friend) =>
+      <FriendCard
+        id={friend.id}
+        firstName={friend.firstName}
+        lastName={friend.lastName}
+        email={friend.email}
+        username={friend.username}
+        addFriend={this.addFriend}
+        friend={false}
+      />
+    );
     let friendCards = this.state.friends.map((friend) =>
       <FriendCard
         id={friend.id}
@@ -57,25 +75,34 @@ export default class Friends extends Component {
         email={friend.email}
         username={friend.username}
         addFriend={this.addFriend}
+        friend={true}
       />
     );
     return (
       <div>
-        <h3>Friends</h3>
-        <nav>
-          <div className="nav-wrapper deep-purple lighten-3">
-            <form>
-              <div className="input-field">
-                <input id="search" type="search" required/>
-                <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
-                <i className="material-icons">close</i>
-              </div>
-            </form>
+        <div>
+          <h3>Search Friends</h3>
+          <nav>
+            <div className="nav-wrapper deep-purple lighten-3">
+              <form>
+                <div className="input-field">
+                  <input id="search" type="search" required onKeyPress={e => this.handleSearch(e)}/>
+                  <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
+                  <i className="material-icons">close</i>
+                </div>
+              </form>
+            </div>
+          </nav>
+          <br/>
+          <div className="row">
+            {userCards}
           </div>
-        </nav>
-        <br/>
-        <div className="row">
-          {friendCards}
+        </div>
+        <div>
+          <h3>My Friends</h3>
+          <div className="row">
+            {friendCards}
+          </div>
         </div>
       </div>
     );
@@ -84,24 +111,45 @@ export default class Friends extends Component {
 
 class FriendCard extends Component {
   render() {
-    return (
-      <div className="card hoverable grey lighten-3 col s12 m6 l4">
-        <div className="card-title col s12">
-          {this.props.firstName} {this.props.lastName}
+    if(this.props.friend) {
+      return (
+        <div className="card hoverable grey lighten-3 col s12 m6 l4">
+          <div className="card-title col s12">
+            {this.props.firstName} {this.props.lastName}
+          </div>
+          <div className="card-content col s12">
+            <p>{this.props.email}</p>
+            <p>{this.props.username}</p>
+          </div>
+          <div className="card-action col s12">
+            <Link to={'/friendProfile?friendId=' + this.props.id}
+              className="btn-flat deep-purple-text"
+            >
+              View Friend<i className="material-icons left">person</i>
+            </Link>
+          </div>
         </div>
-        <div className="card-content col s12">
-          <p>{this.props.email}</p>
-          <p>{this.props.username}</p>
+      );
+    } else {
+      return (
+        <div className="card hoverable grey lighten-3 col s12 m6 l4">
+          <div className="card-title col s12">
+            {this.props.firstName} {this.props.lastName}
+          </div>
+          <div className="card-content col s12">
+            <p>{this.props.email}</p>
+            <p>{this.props.username}</p>
+          </div>
+          <div className="card-action col s12">
+            <button
+              className="btn-flat deep-purple-text"
+              onClick={(e) => {this.props.addFriend(this.props.id);}}
+            >
+              Add Friend<i className="material-icons left">person_add</i>
+            </button>
+          </div>
         </div>
-        <div className="card-action col s12">
-          <button
-            className="btn-flat deep-purple-text"
-            onClick={(e) => {this.props.addFriend(this.props.id);}}
-          >
-            Add Friend<i className="material-icons left">person_add</i>
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }

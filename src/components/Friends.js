@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
-import { getFriends, addFriend, findUsers } from '../requests';
+import { getFriends, addFriend, findUsers, getUser } from '../requests';
 
 export default class Friends extends Component {
   constructor(props) {
@@ -19,10 +19,18 @@ export default class Friends extends Component {
   }
 
   getFriends() {
-    getFriends(this.props.id).then((friends) => {
-      this.setState({
-        friends: friends,
-        users: this.state.users
+    getFriends(this.props.id).then((ids) => {
+      let promises = ids.map((id) => {
+        return getUser(id.friend_id);
+      });
+      Promise.all(promises).then((friends) => {
+        console.log(friends);
+        if(friends) {
+          this.setState({
+            friends: friends,
+            users: this.state.users
+          });
+        }
       });
     });
   }
@@ -58,9 +66,10 @@ export default class Friends extends Component {
   render() {
     let userCards = this.state.users.map((friend) =>
       <FriendCard
+        key={friend.id}
         id={friend.id}
-        firstName={friend.firstName}
-        lastName={friend.lastName}
+        firstName={friend.firstname}
+        lastName={friend.lastname}
         email={friend.email}
         username={friend.username}
         addFriend={this.addFriend}
@@ -69,9 +78,10 @@ export default class Friends extends Component {
     );
     let friendCards = this.state.friends.map((friend) =>
       <FriendCard
+        key={friend.id}
         id={friend.id}
-        firstName={friend.firstName}
-        lastName={friend.lastName}
+        firstName={friend.firstname}
+        lastName={friend.lastname}
         email={friend.email}
         username={friend.username}
         addFriend={this.addFriend}

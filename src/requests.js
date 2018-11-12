@@ -3,13 +3,14 @@ import axios from 'axios';
 const host = "http://localhost:3000";
 
 export const attemptLogin = (username, password) => {
-  axios.get(host + '/login', {
+  return axios.get(host + '/login', {
     params: {
       username: username,
       password: password
     }
   }).then((response) => {
-    return response.data.id;
+    console.log(response);
+    return response.data[0];
   }).catch((error) => {
     return -1;
   });
@@ -78,5 +79,35 @@ export const deleteEvent = (id, event) => {
     return true;
   }).catch((error) => {
     return false;
+  });
+};
+
+export const addFriend = (id, friendId) => {
+  return axios.post(host + '/users/' + id + '/newFriend', {
+    friend_id: friendId
+  }).then((response) => {
+    return true;
+  }).catch((error) => {
+    return false;
+  });
+};
+
+export const getFriends = (id) => {
+  return axios.get(host + '/users/' + id + '/friendships').then((response) => {
+    return response.data;
+  }).catch((err) => {
+    return [];
+  });
+};
+
+export const findUsers = (id, username) => {
+  return axios.get(host + '/users/' + id + '/findUsers', {
+    params: {
+      username: username
+    }
+  }).then((response) => {
+    return response.data;
+  }).catch(() => {
+    return [];
   });
 };

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import TextInput from './common/TextInput';
-import PasswordInput from './common/PasswordInput';
-import { getUser, updateUser } from '../requests'
+import { getUser } from '../requests'
 import Calendar from './Calendar';
 
 export default class FriendProfile extends Component {

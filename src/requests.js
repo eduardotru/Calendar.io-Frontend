@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = "http://localhost:3000";
+const host = "http://calendar-ioapi.herokuapp.com";
 
 export const attemptLogin = (username, password) => {
   return axios.get(host + '/login', {
